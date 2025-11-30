@@ -5,10 +5,9 @@ import {
     flowAdd, flowList, flowDelete, flowOrdenar,
     flowStats, flowVencidas, flowEdit
 } from "./flows.js";
-
+//error: Module '"./flows.js"' has no exported member 'flowAdd'. Module '"./flows.js"' has no exported member 'flowList'. Module '"./flows.js"' has no exported member 'flowDelete'. Module '"./flows.js"' has no exported member 'flowOrdenar'. Module '"./flows.js"' has no exported member 'flowStas'. Module '"./flows.js"' has no exported member 'flowVencidas'.
 export async function mainMenu(collection: TaskCollection) {
     let salir = false;
-//error: Module '"./flows.js"' has no exported member 'flowAdd'. Module '"./flows.js"' has no exported member 'flowList'. Module '"./flows.js"' has no exported member 'flowDelete'. Module '"./flows.js"' has no exported member 'flowOrdenar'. Module '"./flows.js"' has no exported member 'flowStas'. Module '"./flows.js"' has no exported member 'flowVencidas'.
     while (!salir) {
         const { op } = await inquirer.prompt([
             {
