@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { TaskCollection } from "../domain/TaskCollection.js";
-//error line 4 a 7,
+//error linea 4 a 7,
 import {
     flowAdd, flowList, flowDelete, flowOrdenar,
     flowStats, flowVencidas, flowEdit
