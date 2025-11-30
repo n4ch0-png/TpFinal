@@ -1,0 +1,17 @@
+{
+  "name": "tp_listas",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/app.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.7",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "typescript": "^5.4.5"
+  }
+}
