@@ -3,11 +3,14 @@ import { loadTasks, saveTasks } from "../storage/fileStorage.js";
 import { v4 as uuid } from "uuid";
 
 export class TaskCollection {
+
     private tasks: Task[] = [];
 
     async init() {
         this.tasks = await loadTasks();
     }
+
+    //métodos principales
 
     async add(titulo: string, dificultad: Task["dificultad"], fechaVencimiento?: string) {
         const task: Task = {
@@ -19,28 +22,26 @@ export class TaskCollection {
             fechaVencimiento,
             eliminada: false
         };
-
         this.tasks.push(task);
         await saveTasks(this.tasks);
     }
-    
-        async edit(
+
+    async edit(
         id: string,
         cambios: Partial<Omit<Task, "id" | "fechaCreacion">>
     ) {
         const t = this.tasks.find(x => x.id === id && !x.eliminada);
         if (!t) return false;
-    
+
         if (cambios.titulo !== undefined) t.titulo = cambios.titulo;
         if (cambios.descripcion !== undefined) t.descripcion = cambios.descripcion;
         if (cambios.dificultad !== undefined) t.dificultad = cambios.dificultad;
         if (cambios.estado !== undefined) t.estado = cambios.estado;
         if (cambios.fechaVencimiento !== undefined) t.fechaVencimiento = cambios.fechaVencimiento;
-    
+
         await saveTasks(this.tasks);
         return true;
     }
-    
 
     getAll() {
         return this.tasks.filter(t => !t.eliminada);
@@ -68,7 +69,9 @@ export class TaskCollection {
 
     tareasVencidas() {
         const hoy = new Date();
-        return this.getAll().filter(t => t.fechaVencimiento && new Date(t.fechaVencimiento) < hoy);
+        return this.getAll().filter(t =>
+            t.fechaVencimiento && new Date(t.fechaVencimiento) < hoy
+        );
     }
 
     ordenarPor(campo: "titulo" | "fechaCreacion" | "fechaVencimiento" | "dificultad") {
@@ -86,13 +89,47 @@ export class TaskCollection {
             en_progreso: this.getAll().filter(t => t.estado === "en_progreso").length,
             completada: this.getAll().filter(t => t.estado === "completada").length
         };
-
         const porDificultad = {
             baja: this.filtrarPorDificultad("baja").length,
             media: this.filtrarPorDificultad("media").length,
             alta: this.filtrarPorDificultad("alta").length
         };
-
         return { total, porEstado, porDificultad };
+    }
+
+
+    listTasks() {
+        return this.getAll();
+    }
+
+    addTask(titulo: string, descripcion: string, dificultad: Task["dificultad"]) {
+        return this.add(titulo, dificultad);
+    }
+
+    deleteTask(id: string) {
+        return this.delete(id);
+    }
+
+    editTask(id: string, cambios: any) {
+        return this.edit(id, cambios);
+    }
+
+    listExpired() {
+        return this.tareasVencidas();
+    }
+
+    orderTasks(criterio: "titulo" | "dificultad" | "estado") {
+        if (criterio === "estado") {
+            return [...this.getAll()].sort((a, b) => a.estado.localeCompare(b.estado));
+        }
+        return this.ordenarPor(criterio as any);
+    }
+
+    count() {
+        return this.getAll().length;
+    }
+
+    countByState(estado: Task["estado"]) {
+        return this.getAll().filter(t => t.estado === estado).length;
     }
 }

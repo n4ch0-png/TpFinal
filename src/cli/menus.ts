@@ -1,11 +1,16 @@
 import inquirer from "inquirer";
 import { TaskCollection } from "../domain/TaskCollection.js";
-//error linea 4 a 7,
+
 import {
-    flowAdd, flowList, flowDelete, flowOrdenar,
-    flowStats, flowVencidas, flowEdit
+    flowAdd,
+    flowList,
+    flowDelete,
+    flowOrdenar,
+    flowStats,
+    flowVencidas,
+    flowEdit
 } from "./flows.js";
-//error: Module '"./flows.js"' has no exported member 'flowAdd'. Module '"./flows.js"' has no exported member 'flowList'. Module '"./flows.js"' has no exported member 'flowDelete'. Module '"./flows.js"' has no exported member 'flowOrdenar'. Module '"./flows.js"' has no exported member 'flowStas'. Module '"./flows.js"' has no exported member 'flowVencidas'.
+
 export async function mainMenu(collection: TaskCollection) {
     let salir = false;
     while (!salir) {

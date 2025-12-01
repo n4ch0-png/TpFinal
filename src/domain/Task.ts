@@ -8,5 +8,5 @@ export interface Task {
     estado: TaskStatus;
     fechaCreacion: string;
     fechaVencimiento?: string;
-    eliminada?: boolean; // soft delete
+    eliminada?: boolean; 
 }
